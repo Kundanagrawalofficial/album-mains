@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import cors from "cors";
+import serverless from "serverless-http";
 
 //configure env
 dotenv.config();
@@ -32,13 +33,8 @@ app.get("/", (req, res) => {
   res.send("<h1>Welcome to ecommerce app</h1>");
 });
 
-//PORT
-const PORT = process.env.PORT || 8080;
+//wrap express app with serverless function
+const handler = serverless(app);
 
-//run listen
-app.listen(PORT, () => {
-  console.log(
-    `Server Running on ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan
-      .white
-  );
-});
+//export handler function to Vercel
+export { handler };
