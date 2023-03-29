@@ -1,0 +1,5 @@
+deploy:
+  - source: .
+    target: /var/www/myapp
+    exclude:
+      - node_modules/**
